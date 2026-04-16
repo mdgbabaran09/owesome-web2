@@ -15,6 +15,12 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    rules: {
+      'react-refresh/only-export-components': [
+        'ignore',
+        { allowConstantExport: true }, // Recommended for Vite to allow simple constant exports
+      ],
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
