@@ -1,6 +1,11 @@
 import logo from "../assets/owesome-logo.svg"
+import { type RefObject } from "react";
 
-export default function LandingPage() {
+interface LandingPageProps {
+  landingPageContactUsRef: RefObject<HTMLElement | null>;
+}
+
+export default function LandingPage({ landingPageContactUsRef }: LandingPageProps) {
   return (
     <div>
       <section className="py-20 px-4">
@@ -8,18 +13,13 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-6xl mb-6 text-gray-800 font-bold">Math is hard.<br />
-                <span className="text-amber-700">We're not.</span></h1>
-
-
+                <span className="text-primary">We're not.</span></h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-600">No confusion, no tension — just clear, easy, fast, and fair splits.</p>
               <a href="#xxx" className="btn-primary px-8 py-3">Split bills now</a>
-
-
             </div>
             <div className="order-first lg:order-last">
               <img src="/hero-section-image.png" className="w-full object-contain rounded-lg drop-shadow-md" />
             </div>
-
           </div>
         </div>
 
@@ -185,7 +185,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-orange-100/20">
+      <section ref={landingPageContactUsRef} className="py-20 px-4 bg-orange-100/20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">Contact Us</h2>

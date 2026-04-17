@@ -17,9 +17,12 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss()
   ],
+  //tailwind/shadcn
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // view the app on other devices
+  server: {host:true}
 })

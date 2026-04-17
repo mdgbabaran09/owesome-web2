@@ -1,48 +1,134 @@
 import { Link } from "@tanstack/react-router"
 import logo from "../assets/owesome-logo.svg"
-import { useState } from "react"
+import { type RefObject } from "react"
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Menu, X } from '@hugeicons/core-free-icons';
+import { Menu } from '@hugeicons/core-free-icons';
+import { Button } from "./ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { VisuallyHidden } from "radix-ui";
 
-function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface NavbarProps {
+  landingPageContactUsRef: RefObject<HTMLElement | null>;
+}
+
+function Navbar({ landingPageContactUsRef }: NavbarProps) {
+
+  function onClickContactUs() {
+    // scroll smooth is not working properly
+    setTimeout(() => {
+      landingPageContactUsRef.current?.scrollIntoView({ behavior: "smooth" })
+      console.log("landingPageContactUsRef: ", landingPageContactUsRef.current?.scrollIntoView);
+    }, 0);
+  }
 
   return (
     <>
-      <nav className="w-full shadow-md fixed top-0 bg-[#fffcf9] z-50" >
+      <nav className="w-full fixed top-0 z-50 bg-background" >
         <div className="max-w-6xl mx-auto min-h-16 px-4 flex items-center justify-between">
           {/* Logo Container
         shrink-0 so that it does not shrink less than the necessary width
       */}
           <Link to="/" className="flex gap-2 items-center shrink-0">
             <img className="h-12 w-auto" src={logo} />
-            <h1 className="text-xl font-semibold text-amber-700">
+            <h1 className="text-xl font-semibold text-amber-700 tracking-tighter">
               owe<span className="text-amber-600">some</span>
             </h1>
           </Link>
           {/* Links */}
           <div className="hidden md:inline">
-            <NavLinks />
+            <ul className="flex gap-8 justify-center flex-2 flex-row">
+              <li>
+                <a href="#">Pricing</a>
+              </li>
+              <li>
+                <a href="#">About</a>
+              </li>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+            </ul>
           </div>
 
           {/* Buttons */}
           <div className="flex gap-2 shrink-0 ml-auto mr-3 md:ml-0 md:mr-0">
-            <Link to="/login" className="btn-secondary px-2 py-0.5 text-md md:px-4 md:py-1 md:text-lg">
-              Login
-            </Link>
-            <Link to="/signup" className="btn-primary px-2 py-0.5 text-md md:px-4 md:py-1 md:text-lg">
-              Signup
-            </Link>
+
+            <Button variant={"ghost"} asChild>
+              <Link to="/login">
+                Login
+              </Link>
+            </Button>
+
+            <Button asChild>
+              <Link to="/signup">
+                Signup
+              </Link>
+            </Button>
           </div>
-          {
-            isMenuOpen ?
-              <HugeiconsIcon icon={X} className="md:hidden text-gray-700 hover:text-gray-900 transition-colors" onClick={() => { setIsMenuOpen(false) }} size={32} />
-              :
-              <HugeiconsIcon icon={Menu} className="md:hidden text-gray-700 hover:text-gray-900 transition-colors" onClick={() => { setIsMenuOpen(false) }} size={32} />
-          }
-          <div className={`${isMenuOpen ? 'flex' : "hidden"} md:hidden flex-col absolute top-17 rounded-md drop-shadow-lg font-semibold text-xl text-center py-4 min-w-2xs h-fit bg-[var(--default-bg-color)]`}>
-            <NavLinks />
-          </div>
+
+          {/* Navigation for mobile */}
+          {/* <Sheet>
+            <SheetTrigger className="md:hidden" asChild>
+              <HugeiconsIcon icon={Menu} />
+            </SheetTrigger>
+            <SheetContent>
+              <VisuallyHidden.Root>
+                <SheetHeader>
+                  <SheetTitle>Navigation</SheetTitle>
+                  <SheetDescription></SheetDescription>
+                </SheetHeader>
+              </VisuallyHidden.Root>
+              <div className="mt-5 p-5">
+                <ul className="flex justify-start gap-1 flex-2 text-2xl flex-col">
+                  <li>
+                    <SheetClose asChild>
+                      <a href="#landing-page-contact-us" className="block">Pricing</a>
+                    </SheetClose>
+                  </li>
+                  <li>
+                    <a href="#" className="block">About</a>
+                  </li>
+                  <li>
+                    <SheetClose asChild>
+                      <a href="#landing-page-contact-us" className="block" onClick={onClickContactUs}>Contact</a>
+                    </SheetClose>
+                  </li>
+                </ul>
+              </div>
+            </SheetContent>
+          </Sheet> */}
+          <Popover>
+            <PopoverTrigger className="md:hidden" asChild>
+              <HugeiconsIcon icon={Menu} />
+            </PopoverTrigger>
+            <PopoverContent>
+              <VisuallyHidden.Root>
+                <PopoverHeader>
+                  <PopoverTitle>Navigation</PopoverTitle>
+                  <PopoverDescription />
+                </PopoverHeader>
+              </VisuallyHidden.Root>
+              <div className="m-5">
+                <ul className="flex justify-start gap-2 flex-2 flex-col text-lg">
+                  <li>
+                    <a href="#" className="block">Pricing</a>
+                  </li>
+                  <li>
+                    <a href="#" className="block">About</a>
+                  </li>
+                  <li>
+                    <a href="#landing-page-contact-us" className="block" onClick={onClickContactUs}>Contact</a>
+                  </li>
+                </ul>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </nav>
       <div className="mt-16"></div>
@@ -50,20 +136,5 @@ function Navbar() {
   )
 }
 
-function NavLinks() {
-  return (
-    <ul className="flex flex-col gap-8 justify-center flex-2 text-2xl md:text-lg md:flex-row">
-      <li>
-        <a href="#">Pricing</a>
-      </li>
-      <li>
-        <a href="#">About</a>
-      </li>
-      <li>
-        <a href="#">Contact</a>
-      </li>
-    </ul>
-  )
-}
 
 export default Navbar
