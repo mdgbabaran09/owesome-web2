@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router"
 import logo from "../assets/owesome-logo.svg"
-import { type RefObject } from "react"
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Menu } from '@hugeicons/core-free-icons';
 import { Button } from "./ui/button";
@@ -13,20 +12,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { VisuallyHidden } from "radix-ui";
+import { useLocation } from '@tanstack/react-router'
+import { URL_LOGIN } from '@/lib/constants'
 
-interface NavbarProps {
-  landingPageContactUsRef: RefObject<HTMLElement | null>;
-}
 
-function Navbar({ landingPageContactUsRef }: NavbarProps) {
+function Navbar() {
+  const location = useLocation()
 
-  function onClickContactUs() {
-    // scroll smooth is not working properly
-    setTimeout(() => {
-      landingPageContactUsRef.current?.scrollIntoView({ behavior: "smooth" })
-      console.log("landingPageContactUsRef: ", landingPageContactUsRef.current?.scrollIntoView);
-    }, 0);
-  }
+  // console.log("url:", location.pathname === URL_LOGIN);
 
   return (
     <>
@@ -41,10 +34,12 @@ function Navbar({ landingPageContactUsRef }: NavbarProps) {
               owe<span className="text-amber-600">some</span>
             </h1>
           </Link>
+
           {/* Links */}
           <div className="hidden md:inline">
             <ul className="flex gap-8 justify-center flex-2 flex-row">
               <li>
+                {/* create each page for each link */}
                 <a href="#">Pricing</a>
               </li>
               <li>
@@ -57,8 +52,7 @@ function Navbar({ landingPageContactUsRef }: NavbarProps) {
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-2 shrink-0 ml-auto mr-3 md:ml-0 md:mr-0">
-
+          <div className={`${location.pathname === URL_LOGIN ? "hidden" : "flex"} gap-2 shrink-0 ml-auto mr-3 md:ml-0 md:mr-0`}>
             <Button variant={"ghost"} asChild>
               <Link to="/login">
                 Login
@@ -123,7 +117,7 @@ function Navbar({ landingPageContactUsRef }: NavbarProps) {
                     <a href="#" className="block">About</a>
                   </li>
                   <li>
-                    <a href="#landing-page-contact-us" className="block" onClick={onClickContactUs}>Contact</a>
+                    <a href="#landing-page-contact-us" className="block">Contact</a>
                   </li>
                 </ul>
               </div>
@@ -131,7 +125,6 @@ function Navbar({ landingPageContactUsRef }: NavbarProps) {
           </Popover>
         </div>
       </nav>
-      <div className="mt-16"></div>
     </>
   )
 }

@@ -1,14 +1,9 @@
 import logo from "../assets/owesome-logo.svg"
-import { type RefObject } from "react";
 
-interface LandingPageProps {
-  landingPageContactUsRef: RefObject<HTMLElement | null>;
-}
-
-export default function LandingPage({ landingPageContactUsRef }: LandingPageProps) {
+export default function LandingPage() {
   return (
     <div>
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 mt-16">
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center lg:text-left">
@@ -185,7 +180,7 @@ export default function LandingPage({ landingPageContactUsRef }: LandingPageProp
         </div>
       </section>
 
-      <section ref={landingPageContactUsRef} className="py-20 px-4 bg-orange-100/20">
+      <section className="py-20 px-4 bg-orange-100/20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">Contact Us</h2>
