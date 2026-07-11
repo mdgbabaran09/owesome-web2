@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { EMAIL_PLACEHOLDER } from '@/lib/constants'
 
 export const Route = createFileRoute('/login')({
   component: RouteComponent,
@@ -17,9 +18,9 @@ export const Route = createFileRoute('/login')({
 
 function RouteComponent() {
   return (
-    <div className='min-h-screen flex justify-center items-center flex-col'>
+    <div className='flex justify-center items-center'>
       {/* Login */}
-      <Card className="w-full max-w-xs md:max-w-sm">
+      <Card className="w-full min-w-xs sm:min-w-sm">
         <CardHeader>
           <Button variant="link" className='justify-start px-0' asChild>
             <Link to="/" className='mb-2'>{"< Home"}</Link>
@@ -38,19 +39,25 @@ function RouteComponent() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder="m@example.com"
+                  placeholder={EMAIL_PLACEHOLDER}
                   required
                 />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
+                  <Link
+                    to="/forgotPassword"
+                    className="text-primary ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Forgot your password?
+                  </Link>
+                  {/* <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
-                  </a>
+                  </a> */}
                 </div>
                 <Input id="password" type="password" name="password" required />
               </div>
@@ -64,7 +71,7 @@ function RouteComponent() {
           <Button variant="outline" className="w-full">
             Login with Google
           </Button>
-          <Button variant="link" className='mt-2' asChild>
+          <Button variant="link" className='mt-3' asChild>
             <Link to="/signup">No account yet? Sign up here</Link>
           </Button>
         </CardFooter>

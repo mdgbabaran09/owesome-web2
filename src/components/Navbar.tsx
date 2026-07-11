@@ -13,17 +13,18 @@ import {
 } from "@/components/ui/popover"
 import { VisuallyHidden } from "radix-ui";
 import { useLocation } from '@tanstack/react-router'
-import { URL_LOGIN } from '@/lib/constants'
+import { URL_LOGIN, URL_SIGNUP } from '@/lib/constants'
 
 
 function Navbar() {
   const location = useLocation()
-
+  const isHideNavbarBtns = location.pathname === URL_LOGIN || location.pathname === URL_SIGNUP;
   // console.log("url:", location.pathname === URL_LOGIN);
 
   return (
     <>
-      <nav className="w-full fixed top-0 z-50 bg-background" >
+      {/* use sticky so that flex is applicable to it. follows document flow. dont use fixed */}
+      <nav className="w-full sticky top-0 z-50 bg-background" >
         <div className="max-w-6xl mx-auto min-h-16 px-4 flex items-center justify-between">
           {/* Logo Container
         shrink-0 so that it does not shrink less than the necessary width
@@ -52,7 +53,7 @@ function Navbar() {
           </div>
 
           {/* Buttons */}
-          <div className={`${location.pathname === URL_LOGIN ? "hidden" : "flex"} gap-2 shrink-0 ml-auto mr-3 md:ml-0 md:mr-0`}>
+          <div className={`${isHideNavbarBtns ? "hidden" : "flex"} gap-2 shrink-0 ml-auto mr-3 md:ml-0 md:mr-0`}>
             <Button variant={"ghost"} asChild>
               <Link to="/login">
                 Login
@@ -67,36 +68,7 @@ function Navbar() {
           </div>
 
           {/* Navigation for mobile */}
-          {/* <Sheet>
-            <SheetTrigger className="md:hidden" asChild>
-              <HugeiconsIcon icon={Menu} />
-            </SheetTrigger>
-            <SheetContent>
-              <VisuallyHidden.Root>
-                <SheetHeader>
-                  <SheetTitle>Navigation</SheetTitle>
-                  <SheetDescription></SheetDescription>
-                </SheetHeader>
-              </VisuallyHidden.Root>
-              <div className="mt-5 p-5">
-                <ul className="flex justify-start gap-1 flex-2 text-2xl flex-col">
-                  <li>
-                    <SheetClose asChild>
-                      <a href="#landing-page-contact-us" className="block">Pricing</a>
-                    </SheetClose>
-                  </li>
-                  <li>
-                    <a href="#" className="block">About</a>
-                  </li>
-                  <li>
-                    <SheetClose asChild>
-                      <a href="#landing-page-contact-us" className="block" onClick={onClickContactUs}>Contact</a>
-                    </SheetClose>
-                  </li>
-                </ul>
-              </div>
-            </SheetContent>
-          </Sheet> */}
+
           <Popover>
             <PopoverTrigger className="md:hidden" asChild>
               <HugeiconsIcon icon={Menu} />
@@ -108,8 +80,8 @@ function Navbar() {
                   <PopoverDescription />
                 </PopoverHeader>
               </VisuallyHidden.Root>
-              <div className="m-5">
-                <ul className="flex justify-start gap-2 flex-2 flex-col text-lg">
+              <div className="m-4">
+                <ul className="flex justify-start gap-4 flex-2 flex-col text-lg">
                   <li>
                     <a href="#" className="block">Pricing</a>
                   </li>

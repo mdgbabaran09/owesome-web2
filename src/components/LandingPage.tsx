@@ -3,7 +3,7 @@ import logo from "../assets/owesome-logo.svg"
 export default function LandingPage() {
   return (
     <div>
-      <section className="py-20 px-4 mt-16">
+      <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="text-center lg:text-left">
