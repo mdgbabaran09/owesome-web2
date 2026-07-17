@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { EMAIL_PLACEHOLDER } from '@/lib/constants'
 
 export const Route = createFileRoute('/login')({
   component: RouteComponent,
@@ -26,9 +25,6 @@ function RouteComponent() {
             <Link to="/" className='mb-2'>{"< Home"}</Link>
           </Button>
           <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <form id="login">
@@ -39,7 +35,7 @@ function RouteComponent() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder={EMAIL_PLACEHOLDER}
+                  placeholder='e.g., john.doe@example.com'
                   required
                 />
               </div>
@@ -68,9 +64,9 @@ function RouteComponent() {
           <Button type="submit" className="w-full" form="login">
             Login
           </Button>
-          <Button variant="outline" className="w-full">
+          {/* <Button variant="outline" className="w-full">
             Login with Google
-          </Button>
+          </Button> */}
           <Button variant="link" className='mt-3' asChild>
             <Link to="/signup">No account yet? Sign up here</Link>
           </Button>

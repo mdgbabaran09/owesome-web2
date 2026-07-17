@@ -2,9 +2,6 @@
 export const URL_LOGIN: string = '/login';
 export const URL_SIGNUP: string = '/signup';
 
-// Text string
-export const EMAIL_PLACEHOLDER = 'sample@email.com'
-
 // Cognito Auth Config for DEV
 export const COGNITO_AUTH_CONFIG = {
   authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_pSRcPee22",
